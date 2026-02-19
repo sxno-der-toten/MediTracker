@@ -1,0 +1,153 @@
+<div class="container my-5">
+
+    <a routerLink="/" class="text-decoration-none text-dark fw-bold mb-4 d-inline-block">
+        <i class="bi bi-chevron-left me-1"></i> Retour
+    </a>
+
+    <div class="row align-items-start gap-4">
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm p-4 recap-card">
+                <h5 class="fw-bold mb-3">Récapitulatif</h5>
+
+                <img [src]="doctor.imageUrl" class="img-fluid rounded-3 mb-3 object-fit-cover"
+                    style="height: 250px; width: 100%;" alt="Docteur">
+
+                <h5 class="fw-bold mb-0">{{ doctor.name }}</h5>
+                <p class="text-secondary small mb-4">{{ doctor.specialty }}</p>
+
+                <div class="d-flex justify-content-between align-items-center py-2 border-top small">
+                    <span class="text-secondary">Date</span>
+                    <span class="fw-bold">{{ selectedDate ? (selectedDate.fullDate | date:'dd/MM/yyyy') : '-' }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top small">
+                    <span class="text-secondary">Heure</span>
+                    <span class="fw-bold">{{ selectedTime ? selectedTime : '-' }}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top small">
+                    <span class="text-secondary">Tarif</span>
+                    <span class="badge bg-dark rounded-pill px-3">{{ doctor.price }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm p-4 p-md-5 recap-card flex-grow-1">
+
+                <div class="d-flex align-items-center mb-5 gap-2 small fw-medium">
+                    <div class="d-flex align-items-center gap-2" [class.text-muted]="step > 1">
+                        <span class="step-circle" [class.active]="step === 1" [class.completed]="step > 1">
+                            <i class="bi bi-check" *ngIf="step > 1"></i>
+                            <span *ngIf="step === 1">1</span>
+                        </span>
+                        Date <i class="bi bi-chevron-right ms-2 text-muted"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2" [class.text-muted]="step !== 2">
+                        <span class="step-circle" [class.active]="step === 2" [class.completed]="step > 2">
+                            <i class="bi bi-check" *ngIf="step > 2"></i>
+                            <span *ngIf="step <= 2">2</span>
+                        </span>
+                        Heure <i class="bi bi-chevron-right ms-2 text-muted"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2" [class.text-muted]="step !== 3">
+                        <span class="step-circle" [class.active]="step === 3">3</span>
+                        Informations
+                    </div>
+                </div>
+
+                @if (step === 1) {
+                <h5 class="fw-bold mb-4">Choisissez une date</h5>
+                <div class="text-center fw-bold mb-3 small">{{ availableDates[0].monthName }}</div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-light rounded-3 border-0 px-2 py-3" (click)="prevDays()"
+                        [disabled]="currentOffset === 0"> <i class="bi bi-chevron-left"></i>
+                    </button>
+
+                    <div class="d-flex overflow-auto gap-2 py-2 hide-scrollbar w-100">
+                        @for (date of availableDates; track date.fullDate) {
+                        <div class="date-box text-center p-3 rounded-3 border flex-shrink-0"
+                            [class.active-date]="selectedDate === date" (click)="selectDate(date)">
+                            <div class="small text-muted">{{ date.dayName }}</div>
+                            <div class="fs-5 fw-bold">{{ date.dayNumber }}</div>
+                        </div>
+                        }
+                    </div>
+
+                    <button class="btn btn-light rounded-3 border-0 px-2 py-3" (click)="nextDays()">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+                }
+
+                @if (step === 2) {
+                <h5 class="fw-bold mb-4">Sélectionnez un créneau</h5>
+
+                <button class="btn btn-light w-100 text-start border-0 py-3 mb-4 rounded-3 d-flex justify-content-between align-items-center"
+                    (click)="goBackToDate()">
+                    <span><i class="bi bi-chevron-left me-2"></i> Changer la date</span>
+                    <span class="fw-bold">{{ selectedDate.dayName }} {{ selectedDate.dayNumber }} {{ selectedDate.monthName.split(' ')[0] }}</span>
+                </button>
+
+                <h6 class="fw-bold small mb-3"><i class="bi bi-clock me-2"></i> Matin</h6>
+                <div class="row g-2 mb-4">
+                    @for (slot of morningSlots; track slot.time) {
+                    <div class="col-3 col-md-2">
+                        <button class="btn w-100 rounded-3 py-2 small"
+                            [ngClass]="slot.available ? 'btn-outline-secondary time-btn' : 'btn-light text-muted border text-decoration-line-through'"
+                            [disabled]="!slot.available" (click)="selectTime(slot.time)">
+                            {{ slot.time }}
+                        </button>
+                    </div>
+                    }
+                </div>
+
+                <h6 class="fw-bold small mb-3"><i class="bi bi-clock me-2"></i> Après-midi</h6>
+                <div class="row g-2">
+                    @for (slot of afternoonSlots; track slot.time) {
+                    <div class="col-3 col-md-2">
+                        <button class="btn w-100 rounded-3 py-2 small"
+                            [ngClass]="slot.available ? 'btn-outline-secondary time-btn' : 'btn-light text-muted border text-decoration-line-through'"
+                            [disabled]="!slot.available" (click)="selectTime(slot.time)">
+                            {{ slot.time }}
+                        </button>
+                    </div>
+                    }
+                </div>
+                }
+
+                @if (step === 3) {
+                <h5 class="fw-bold mb-4">Vos informations</h5>
+
+                <button class="btn btn-light w-100 text-start border-0 py-3 mb-4 rounded-3 d-flex justify-content-between align-items-center"
+                    (click)="goBackToTime()">
+                    <span><i class="bi bi-chevron-left me-2"></i> Changer l'heure</span>
+                    <span class="fw-bold">{{ selectedDate.fullDate | date:'dd/MM/yyyy' }} à {{ selectedTime }}</span>
+                </button>
+
+                <form (submit)="confirmBooking($event)">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold"><i class="bi bi-person me-2"></i>Nom complet *</label>
+                        <input type="text" class="form-control border-0 bg-light py-2 px-3 custom-input" value="patient" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold"><i class="bi bi-envelope me-2"></i>Email *</label>
+                        <input type="email" class="form-control border-0 bg-light py-2 px-3 custom-input" value="patient@test.fr" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold"><i class="bi bi-telephone me-2"></i>Téléphone *</label>
+                        <input type="tel" class="form-control border-0 bg-light py-2 px-3 custom-input" value="0616161616">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold"><i class="bi bi-file-text me-2"></i>Motif de la consultation</label>
+                        <textarea class="form-control border-0 bg-light py-2 px-3 custom-input" rows="3" placeholder="Saisissez votre motif..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100 rounded-3 py-3 fw-bold">Confirmer le rendez-vous</button>
+                </form>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

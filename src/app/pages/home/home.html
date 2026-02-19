@@ -1,0 +1,95 @@
+<main class="container my-5">
+
+    <!-- Notification de validation de rendez-vous -->
+    @if (showSuccessToast) {
+    <div class="toast-container position-fixed top-0 end-0 p-4" style="z-index: 1055;">
+        <div class="toast show align-items-center text-bg-dark border-0 shadow-lg fade-in-card" role="alert">
+            <div class="d-flex p-2">
+                <div class="toast-body fw-medium fs-6">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i> Rendez-vous confirmé avec succès !
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    (click)="showSuccessToast = false"></button>
+            </div>
+        </div>
+    </div>
+    }
+
+    <section class="hero-section py-5 mb-5">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <h1 class="fw-bold mb-3 fs-2">
+                    Prenez rendez-vous avec un professionnel de santé
+                </h1>
+                <p class="text-secondary mb-0" style="font-size: 1.1rem;">
+                    Consultez les meilleurs médecins près de chez vous et réservez en ligne
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8 d-flex gap-2">
+
+                    <div class="input-group border rounded-pill bg-white shadow-sm flex-grow-1 overflow-hidden">
+                        <span class="input-group-text bg-white border-0 ps-3">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-0 py-3 small shadow-none"
+                            [placeholder]="isMobile ? 'Rechercher' : 'Rechercher un médecin, une spécialité...'"
+                            [(ngModel)]="searchTerm" (input)="applyFilters()">
+                    </div>
+
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-filter rounded-pill px-4 py-3 d-flex align-items-center gap-2 fw-medium h-100"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ selectedSpecialty || 'Filtrer' }} <i class="bi bi-chevron-compact-down"></i>
+                        </button>
+                        <ul class="dropdown-menu border-0 shadow-sm rounded-3 mt-2">
+                            <li><a class="dropdown-item small" href="javascript:void(0)"
+                                    (click)="setSpecialty('')">Toutes les spécialités</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            @for (spec of specialties; track spec) {
+                            <li><a class="dropdown-item small" href="javascript:void(0)" (click)="setSpecialty(spec)">{{
+                                    spec }}</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="mt-5 pt-3">
+        <p class="mb-4 text-secondary fw-medium">{{ filteredDoctors.length }} médecins trouvés</p>
+
+            <div class="row g-4 mb-5">
+                @for (doctor of filteredDoctors; track $index; let i = $index) {
+                <div class="col-md-4 fade-in-card" [style.--delay]="i * 0.1 + 's'">
+
+                    <div class="card h-100 border-0 shadow-sm custom-card">
+                        <img [src]="doctor.imageUrl" class="card-img-top custom-img" alt="Photo de {{ doctor.name }}">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <h5 class="card-title fw-bold mb-0">{{ doctor.name }}</h5>
+                                <span class="badge bg-light text-dark border">{{ doctor.price }}</span>
+                            </div>
+                            <p class="text-muted small mb-3">{{ doctor.specialty }}<br>{{ doctor.location }}</p>
+                            <p class="card-text text-secondary small flex-grow-1">{{ doctor.description }}</p>
+
+                            <button class="btn btn-dark w-100 rounded-pill mt-3 py-2 small fw-medium"
+                                (click)="goToBooking(doctor)">
+                                <i class="bi bi-calendar-event me-2"></i> Prendre rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+        </div>
+</main>

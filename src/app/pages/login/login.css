@@ -1,0 +1,7 @@
+input::placeholder {
+  opacity: 0.5;
+}
+
+.input-container input {
+  width: 100%;
+}

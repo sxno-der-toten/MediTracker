@@ -1,0 +1,81 @@
+/* Cartes globales */
+.recap-card {
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+/* Le Stepper (Les bulles numérotées) */
+.step-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: 0.3s ease;
+}
+
+.step-circle.active,
+.step-circle.completed {
+    background-color: #121212; /* Noir très sombre comme la maquette */
+    color: white;
+}
+
+/* Étape 1 : Cartes de date */
+.date-box {
+    width: 70px;
+    cursor: pointer;
+    background-color: #fcfcfc;
+    border-color: #e9ecef !important;
+    transition: 0.2s;
+}
+
+.date-box:hover {
+    border-color: #212529 !important;
+}
+
+.date-box.active-date {
+    border-color: #121212 !important;
+    background-color: #121212;
+    color: white;
+}
+.date-box.active-date .text-muted {
+    color: #e0e0e0 !important;
+}
+
+/* Cacher la scrollbar native pour la liste horizontale */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Étape 2 : Boutons Heure */
+.time-btn {
+    border-color: #dee2e6;
+    color: #212529;
+    font-weight: 500;
+}
+.time-btn:hover {
+    background-color: #121212;
+    color: white;
+    border-color: #121212;
+}
+
+/* Étape 3 : Inputs personnalisés */
+.custom-input {
+    border-radius: 8px;
+    box-shadow: none !important;
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.custom-input:focus {
+    background-color: #e9ecef !important; /* Léger assombrissement au focus */
+}
