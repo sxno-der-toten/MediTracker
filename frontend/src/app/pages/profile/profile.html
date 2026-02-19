@@ -1,0 +1,91 @@
+<div class="container my-5 fade-in">
+
+    <div class="mb-5">
+        <h2 class="fw-bold mb-1">Profil</h2>
+        <p class="text-secondary small">Gérez vos informations personnelles</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            
+            <div class="card profile-card p-4 text-center mb-4">
+                <div class="d-flex justify-content-center mb-3">
+                    @if (user.photoUrl) {
+                        <img [src]="user.photoUrl" class="avatar-circle object-fit-cover" alt="Avatar">
+                    } @else {
+                        <div class="avatar-circle d-flex align-items-center justify-content-center bg-dark text-white fs-2 fw-bold">
+                            {{ getInitials() }}
+                        </div>
+                    }
+                </div>
+                <h5 class="fw-bold mb-1">{{ user.fullName }}</h5>
+                <p class="text-secondary small mb-3">{{ user.email }}</p>
+                
+                <div>
+                    <span class="badge bg-light text-dark border rounded-pill px-4 py-2 fw-medium">
+                        {{ user.role }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="card profile-card p-4">
+                <div class="d-flex align-items-center gap-2 mb-2 fw-bold">
+                    <i class="bi bi-box-arrow-right fs-5"></i> Déconnexion
+                </div>
+                <p class="text-secondary small mb-4">Vous serez redirigé(e) vers la page d'accueil.</p>
+                <button class="btn btn-danger w-100 rounded-pill py-2 fw-medium" (click)="logout()">
+                    Se déconnecter
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card profile-card p-4 p-md-5">
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-1">Informations personnelles</h5>
+                    <p class="text-secondary small">Vos données de compte MediTracker</p>
+                </div>
+
+                <form (submit)="saveChanges()">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Nom complet</label>
+                        <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+                            <i class="bi bi-person fs-5 me-2 text-dark"></i>
+                            <input type="text" class="form-control border-0 py-2 small shadow-none" 
+                                   name="fullName"
+                                   [(ngModel)]="user.fullName">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Email</label>
+                        <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+                            <i class="bi bi-envelope fs-5 me-2 text-dark"></i>
+                            <input type="email" class="form-control border-0 py-2 small shadow-none" 
+                                   name="email"
+                                   [(ngModel)]="user.email">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Occupation</label>
+                        <div class="d-flex align-items-center border rounded-3 px-3 input-container disabled-input">
+                            <i class="bi bi-lock-fill fs-5 me-2 text-secondary"></i>
+                            <input type="text" class="form-control border-0 py-2 small shadow-none bg-transparent" 
+                                   [value]="user.role" 
+                                   readonly 
+                                   disabled>
+                        </div>
+                        <p class="text-secondary small mt-2 fst-italic">Votre occupation ne peut pas être modifiée.</p>
+                    </div>
+
+                    <div class="text-end mt-5">
+                        <button type="submit" class="btn btn-dark rounded-pill px-5 py-2 fw-medium">
+                            Enregistrer les modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="container d-flex flex-column justify-content-center align-items-center w-100 m-auto fade-in-card">
+  
+  <div class="w-100" style="max-width: 950px;">
+    
+    <div class="row align-items-center g-5">
+      
+      <div class="col-md-6">
+        <span class="badge bg-light text-dark border px-3 py-2 mb-3 rounded-pill" style="font-size: 0.75rem;">
+          <i class="bi bi-star-fill text-warning me-1"></i> Espace Professionnel
+        </span>
+        <h2 class="fw-bold mb-3" style="font-size: 1.8rem; line-height: 1.2;">
+          Développez votre patientèle avec MediTracker
+        </h2>
+        <p class="text-secondary mb-4" style="font-size: 0.9rem;">
+          Rejoignez la plateforme de référence. Gérez vos rendez-vous, réduisez l'absentéisme et gagnez un temps précieux au quotidien.
+        </p>
+
+        <ul class="list-unstyled mb-0">
+          <li class="d-flex align-items-start mb-3">
+            <div class="icon-box me-3 mt-1">
+              <i class="bi bi-calendar-check text-dark"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Agenda intelligent</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem;">Synchronisation en temps réel de vos consultations.</p>
+            </div>
+          </li>
+          <li class="d-flex align-items-start mb-3">
+            <div class="icon-box me-3 mt-1">
+              <i class="bi bi-shield-check text-dark"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Données sécurisées</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem;">Hébergement certifié Données de Santé (HDS).</p>
+            </div>
+          </li>
+          <li class="d-flex align-items-start">
+            <div class="icon-box me-3 mt-1">
+              <i class="bi bi-graph-up text-dark"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Visibilité accrue</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem;">Soyez trouvé facilement par les patients de votre région.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm p-4 auth-card">
+          
+          <div class="mb-4">
+            <h5 class="fw-bold mb-1">Créer mon profil praticien</h5>
+            <p class="text-secondary" style="font-size: 0.75rem;">Nos équipes valideront votre profil sous 24h.</p>
+          </div>
+
+          <form (submit)="submitForm($event)">
+            
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label class="form-label fw-bold" style="font-size: 0.8rem;">Prénom</label>
+                <div class="border rounded-3 px-3 bg-white input-container">
+                  <input type="text" class="form-control border-0 py-2 px-0 small shadow-none" placeholder="Jean">
+                </div>
+              </div>
+              <div class="col-6">
+                <label class="form-label fw-bold" style="font-size: 0.8rem;">Nom</label>
+                <div class="border rounded-3 px-3 bg-white input-container">
+                  <input type="text" class="form-control border-0 py-2 px-0 small shadow-none" placeholder="Dupont">
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold" style="font-size: 0.8rem;">Spécialité</label>
+              <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+                <i class="bi bi-briefcase fs-6 me-2 text-muted"></i>
+                <select class="form-select border-0 py-2 px-0 shadow-none text-muted" style="font-size: 0.85rem;">
+                  <option selected disabled>Sélectionnez votre spécialité</option>
+                  <option value="1">Médecin généraliste</option>
+                  <option value="2">Cardiologue</option>
+                  <option value="3">Dermatologue</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold" style="font-size: 0.8rem;">Email professionnel</label>
+              <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+                <i class="bi bi-envelope fs-6 me-2 text-muted"></i>
+                <input type="email" class="form-control border-0 py-2 px-0 small shadow-none" placeholder="docteur@cabinet.fr">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold" style="font-size: 0.8rem;">Numéro RPPS (Optionnel)</label>
+              <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+                <i class="bi bi-card-heading fs-6 me-2 text-muted"></i>
+                <input type="text" class="form-control border-0 py-2 px-0 small shadow-none" placeholder="Ex: 10001234567">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100 rounded-pill py-2 fw-medium" style="font-size: 0.85rem;">
+              Soumettre ma demande
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

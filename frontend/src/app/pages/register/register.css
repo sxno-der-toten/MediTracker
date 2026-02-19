@@ -1,0 +1,43 @@
+input::placeholder {
+  opacity: 0.5;
+}
+
+.fade-in-card {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Bordure grise légère au repos */
+.input-container {
+    border-color: #dee2e6 !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-card {
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.input-container input {
+    width: 100%;
+}
+
+.input-container.border:hover {
+    transition: 0.3s ease;
+    box-shadow: 0 0 0 0.09rem #6BB8AD !important;
+}
+
+
+.input-container.border:focus-within {
+    box-shadow: 0 0 0 0.09rem #6BB8AD !important;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

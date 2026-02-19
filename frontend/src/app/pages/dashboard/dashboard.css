@@ -1,0 +1,66 @@
+/* Animation d'apparition des vues */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cartes générales */
+.custom-stat-card {
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.custom-main-card {
+    border-radius: 20px;
+    background-color: #ffffff;
+    min-height: 400px;
+}
+
+/* ---------------------------------
+   Le composant Toggle (Switcher)
+----------------------------------- */
+.toggle-container {
+    display: inline-flex;
+    background-color: #f8f9fa; /* Gris très clair */
+    border: 1px solid #dee2e6;
+    border-radius: 50px;
+    padding: 4px;
+}
+
+.toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d; /* Texte grisé par défaut */
+    transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+    color: #212529;
+}
+
+.toggle-btn.active {
+    background-color: #ffffff; /* Fond blanc quand actif */
+    color: #212529; /* Texte noir */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Petite ombre pour faire ressortir */
+}
+
+/* ---------------------------------
+   Liste des médecins
+----------------------------------- */
+.doctor-list-item {
+    transition: border-color 0.2s;
+    border-color: #e9ecef !important;
+}
+
+.doctor-list-item:hover {
+    border-color: #ced4da !important;
+    background-color: #fcfcfc !important;
+}

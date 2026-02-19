@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 // 1. IMPORT TRÈS IMPORTANT : FormsModule pour utiliser [(ngModel)]
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class Home implements OnInit {
   showSuccessToast = false;
-  isMobile = false; // Pour ton placeholder dynamique
+  toastMessage = '';
+  isMobile = false;
 
   // Tes données de base (intactes)
   doctors = [
@@ -31,15 +32,35 @@ export class Home implements OnInit {
   selectedSpecialty: string = '';
   specialties: string[] = ['Cardiologue', 'Médecin généraliste', 'Dermatologue'];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if (params['bookingSuccess']) {
+
+      if (params['bookingSuccess'] || params['soignantSuccess']) {
+        // On définit le bon message
+        this.toastMessage = params['bookingSuccess']
+          ? 'Rendez-vous confirmé avec succès !'
+          : "Votre demande d'inscription a bien été envoyée !";
+
         this.showSuccessToast = true;
-        setTimeout(() => this.showSuccessToast = false, 4000);
+
+        // 🪄 ASTUCE DE PRO : On nettoie l'URL (enlève le ?bookingSuccess=true) 
+        // pour que le toast ne revienne pas si on fait F5 !
+        this.router.navigate([], { replaceUrl: true });
+
+        // On fait disparaître après 4 secondes (avec cdr pour forcer l'action)
+        setTimeout(() => {
+          this.showSuccessToast = false;
+          this.cdr.detectChanges();
+        }, 4000);
       }
     });
+
     this.isMobile = window.innerWidth <= 768;
   }
 
@@ -47,12 +68,12 @@ export class Home implements OnInit {
   applyFilters() {
     this.filteredDoctors = this.doctors.filter(doctor => {
       // 1. Vérifie la recherche par nom ou spécialité
-      const matchesSearch = doctor.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-                            doctor.specialty.toLowerCase().includes(this.searchTerm.toLowerCase());
-      
+      const matchesSearch = doctor.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        doctor.specialty.toLowerCase().includes(this.searchTerm.toLowerCase());
+
       // 2. Vérifie le menu déroulant
       const matchesSpecialty = this.selectedSpecialty ? doctor.specialty === this.selectedSpecialty : true;
-      
+
       return matchesSearch && matchesSpecialty;
     });
   }

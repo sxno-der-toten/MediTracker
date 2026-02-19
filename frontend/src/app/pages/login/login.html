@@ -1,38 +1,39 @@
-<div class="container my-5 d-flex justify-content-center">
-  <div class="col-12 col-md-8 col-lg-6">
+<div class="container d-flex flex-column justify-content-center align-items-center fade-in-card" style="min-height: calc(100vh - 100px);">
+  
+  <div class="w-100" style="max-width: 500px;">
     
-    <div class="text-center mb-4 mt-5">
-      <h2 class="fw-bold mb-2">Bon retour !</h2>
+    <div class="text-center mb-4 mt-3">
+      <h2 class="fw-bold mb-1 fs-3">Bon retour !</h2>
       <p class="text-secondary small">Connectez-vous pour gérer vos rendez-vous médicaux</p>
     </div>
 
-    <div class="card border-0 shadow-sm p-4 p-md-5 auth-card">
+    <div class="card border-0 shadow-sm p-4 auth-card">
       <form>
         
-        <div class="mb-4">
-          <label class="form-label fw-bold small">Email</label>
-          <div class="d-flex align-items-center border rounded-3 px-3 py-2 bg-white input-container">
-            <i class="bi bi-envelope fs-5 me-2 text-dark"></i>
-            <input type="email" class="form-control border-0 p-0 shadow-none" placeholder="jeandupont@email.fr">
+        <div class="mb-3">
+          <label class="form-label fw-bold" style="font-size: 0.85rem;">Email</label>
+          <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+            <i class="bi bi-envelope fs-5 me-2 text-muted"></i> <input type="email" class="form-control border-0 py-2 small shadow-none" placeholder="jeandupont@email.fr">
           </div>
         </div>
 
         <div class="mb-4">
-          <div class="d-flex justify-content-between">
-            <label class="form-label fw-bold small">Mot de passe</label>
-            <a href="#" class="text-secondary small text-decoration-none">Mot de passe oublié ?</a>
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label class="form-label fw-bold mb-0" style="font-size: 0.85rem;">Mot de passe</label>
+            <a href="#" class="text-secondary text-decoration-none" style="font-size: 0.8rem;">Mot de passe oublié ?</a>
           </div>
-          <div class="d-flex align-items-center border rounded-3 px-3 py-2 bg-white input-container">
-            <i class="bi bi-lock fs-5 me-2 text-dark"></i>
-            <input type="password" class="form-control border-0 p-0 shadow-none" placeholder="••••••••••••••">
+          <div class="d-flex align-items-center border rounded-3 px-3 bg-white input-container">
+            <i class="bi bi-lock fs-5 me-2 text-muted"></i> <input type="password" class="form-control border-0 py-2 small shadow-none" placeholder="••••••••••••••">
           </div>
         </div>
 
-        <button type="submit" class="btn btn-dark w-100 rounded-pill py-2 mb-4 fw-medium">Se connecter</button>
+        <button routerLink="/" type="submit" class="btn btn-dark w-100 rounded-pill py-2 mb-3 fw-medium" style="font-size: 0.9rem;">
+          Se connecter
+        </button>
 
-        <div class="text-start">
-          <span class="small text-secondary">Pas encore de compte ?</span>
-          <a routerLink="/register" class="text-dark small fw-bold text-decoration-none ms-1">Inscrivez-vous</a>
+        <div class="text-center">
+          <span class="text-secondary" style="font-size: 0.85rem;">Pas encore de compte ?</span>
+          <a routerLink="/register" class="text-dark fw-bold text-decoration-none ms-1" style="font-size: 0.85rem;">Inscrivez-vous</a>
         </div>
 
       </form>

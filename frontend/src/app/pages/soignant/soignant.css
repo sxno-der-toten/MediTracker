@@ -1,0 +1,64 @@
+:host {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* --- ANIMATION --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-card {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.auth-card {
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.input-container {
+    border-color: #dee2e6 !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-container:focus-within {
+    border-color: #212529 !important;
+    box-shadow: 0 0 0 0.1rem rgba(33, 37, 41, 0.1);
+}
+
+.input-container input, .input-container select {
+  width: 100%;
+}
+
+input::placeholder {
+  opacity: 0.5;
+}
+
+.icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.input-container.border:hover {
+    transition: 0.3s ease;
+    box-shadow: 0 0 0 0.09rem #6BB8AD !important;
+}
+
+
+.input-container.border:focus-within {
+    box-shadow: 0 0 0 0.09rem #6BB8AD !important;
+}

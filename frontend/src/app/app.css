@@ -1,4 +1,3 @@
-
 .auth-card {
     border-radius: 16px;
     background-color: #ffffff;
@@ -68,4 +67,10 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+}
+
+.custom-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
 }

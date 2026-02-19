@@ -1,0 +1,36 @@
+/* Style global des cartes (réutilisation du style existant) */
+.profile-card {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    background-color: #ffffff;
+}
+
+/* Style de l'avatar rond (initiale ou image) */
+.avatar-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* Permet de centrer parfaitement la lettre si c'est une initiale */
+}
+
+/* Style pour les champs désactivés (Occupation) */
+.disabled-input {
+    background-color: #f8f9fa; /* Fond gris clair */
+    border-color: #dee2e6 !important;
+    cursor: not-allowed; /* Curseur "interdit" au survol */
+}
+
+.disabled-input input {
+    color: #6c757d; /* Texte grisé */
+    cursor: not-allowed;
+}
+
+/* Petite animation d'apparition douce */
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
