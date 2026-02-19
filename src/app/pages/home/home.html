@@ -68,7 +68,7 @@
         <p class="mb-4 text-secondary fw-medium">{{ filteredDoctors.length }} médecins trouvés</p>
 
             <div class="row g-4 mb-5">
-                @for (doctor of filteredDoctors; track doctor.name; let i = $index) {
+                @for (doctor of filteredDoctors; track $index; let i = $index) {
                 <div class="col-md-4 fade-in-card" [style.--delay]="i * 0.1 + 's'">
 
                     <div class="card h-100 border-0 shadow-sm custom-card">
