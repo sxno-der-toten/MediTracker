@@ -1,0 +1,33 @@
+<div class="d-flex flex-column min-vh-100">
+
+  <nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a class="navbar-brand d-flex align-items-center text-primary fw-bold" routerLink="/">
+        <i class="bi bi-heart-pulse fs-3 me-2 text-info"></i>
+        <span class="text-dark">MEDITRACKER</span>
+      </a>
+
+      <div class="d-flex align-items-center gap-4">
+        <a href="#" class="btn btn-outline-soignant rounded-pill btn-sm px-3 fw-medium">Vous êtes soignant ?</a>
+        <a routerLink="/register" class="nav-link-custom" routerLinkActive="active-link">
+          Inscription
+        </a>
+        <a routerLink="/login" class="nav-link-custom" routerLinkActive="active-link">
+          Connexion
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex-grow-1 d-flex flex-column">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="bg-light py-4 border-top mt-auto">
+    <div class="container text-center">
+      <p class="text-muted small mb-0">© 2026 MediTracker - Plateforme de prise de rendez-vous médical en ligne</p>
+    </div>
+  </footer>
+
+</div>
