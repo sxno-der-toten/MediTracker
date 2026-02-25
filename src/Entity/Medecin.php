@@ -6,26 +6,33 @@ use App\Repository\MedecinRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['medecin:read']],
+    denormalizationContext: ['groups' => ['medecin:write']]
+)]
 class Medecin
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['medecin:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['medecin:read', 'medecin:write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['medecin:read', 'medecin:write'])]
     private ?string $specialite = null;
 
     #[ORM\Column(length: 4)]
-    private ?string $numero_ordre = null;
-
-    #[ORM\Column(length: 13, nullable: true)]
-    private ?string $telephone = null;
+    #[Groups(['medecin:read', 'medecin:write'])]
+    private ?string $numeroOrdre = null;
 
     /**
      * @var Collection<int, Patient>
@@ -34,6 +41,7 @@ class Medecin
     private Collection $patient;
 
     #[ORM\OneToOne(inversedBy: 'medecin', cascade: ['persist', 'remove'])]
+    #[Groups(['medecin:write'])]
     private ?User $user = null;
 
     /**
@@ -61,7 +69,6 @@ class Medecin
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -73,31 +80,17 @@ class Medecin
     public function setSpecialite(string $specialite): static
     {
         $this->specialite = $specialite;
-
         return $this;
     }
 
     public function getNumeroOrdre(): ?string
     {
-        return $this->numero_ordre;
+        return $this->numeroOrdre;
     }
 
-    public function setNumeroOrdre(string $numero_ordre): static
+    public function setNumeroOrdre(string $numeroOrdre): static
     {
-        $this->numero_ordre = $numero_ordre;
-
-        return $this;
-    }
-
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(?string $telephone): static
-    {
-        $this->telephone = $telephone;
-
+        $this->numeroOrdre = $numeroOrdre;
         return $this;
     }
 
@@ -114,14 +107,12 @@ class Medecin
         if (!$this->patient->contains($patient)) {
             $this->patient->add($patient);
         }
-
         return $this;
     }
 
     public function removePatient(Patient $patient): static
     {
         $this->patient->removeElement($patient);
-
         return $this;
     }
 
@@ -132,18 +123,15 @@ class Medecin
 
     public function setUser(?User $user): static
     {
-        // unset the owning side of the relation if necessary
         if ($user === null && $this->user !== null) {
             $this->user->setMedecin(null);
         }
 
-        // set the owning side of the relation if necessary
         if ($user !== null && $user->getMedecin() !== $this) {
             $user->setMedecin($this);
         }
 
         $this->user = $user;
-
         return $this;
     }
 
@@ -153,27 +141,5 @@ class Medecin
     public function getCreneau(): Collection
     {
         return $this->creneau;
-    }
-
-    public function addCreneau(Creneau $creneau): static
-    {
-        if (!$this->creneau->contains($creneau)) {
-            $this->creneau->add($creneau);
-            $creneau->setMedecin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCreneau(Creneau $creneau): static
-    {
-        if ($this->creneau->removeElement($creneau)) {
-            // set the owning side to null (unless already changed)
-            if ($creneau->getMedecin() === $this) {
-                $creneau->setMedecin(null);
-            }
-        }
-
-        return $this;
     }
 }

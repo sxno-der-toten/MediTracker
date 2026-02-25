@@ -1,5 +1,11 @@
+# Importation automatique de vos contrôleurs (ce que vous avez déjà)
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# AJOUTEZ CECI POUR LE JWT :
+api_login_check:
+    path: /api/login_check
+    methods: [POST]

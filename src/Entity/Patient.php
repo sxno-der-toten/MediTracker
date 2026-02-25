@@ -7,23 +7,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use App\State\PatientProcessor; // Importation du futur processeur
+use ApiPlatform\Metadata\ApiProperty;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: PatientRepository::class)]
+
+#[ApiResource(
+    operations: [
+        new Post(
+            // On autorise tout le monde à s'inscrire
+            uriTemplate: '/patients',
+            security: "is_granted('PUBLIC_ACCESS')",
+            processor: PatientProcessor::class,
+            normalizationContext: ['groups' => ['user:read']],
+            denormalizationContext: ['groups' => ['user:write']]
+        ),
+        // Tes autres opérations (Get, Put, etc.) restent ici
+    ]
+)]
 class Patient
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $date_naissance = null;
+   
 
     /**
      * @var Collection<int, Medecin>
@@ -32,7 +51,9 @@ class Patient
     private Collection $medecin;
 
     #[ORM\OneToOne(inversedBy: 'patient', cascade: ['persist', 'remove'])]
+    #[ApiProperty(writableLink: true)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['user:read', 'user:write'])]
     private ?User $user = null;
 
     /**
@@ -71,30 +92,7 @@ class Patient
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
 
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-
-    public function getDateNaissance(): ?\DateTime
-    {
-        return $this->date_naissance;
-    }
-
-    public function setDateNaissance(\DateTime $date_naissance): static
-    {
-        $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Medecin>
